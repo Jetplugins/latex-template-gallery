@@ -15,6 +15,7 @@ jobs:
       - name: Validate catalog and package
         run: |
           python3 validate.py
+          python3 verify_gallery.py --audit-only
           python3 package.py "${GITHUB_REF_NAME#v}"
       - name: Publish versioned content
         env:
