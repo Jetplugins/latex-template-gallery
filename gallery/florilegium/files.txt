@@ -1,0 +1,15 @@
+STARTER-LICENSE.txt
+TEMPLATE-README.txt
+UPSTREAM-LICENSE.txt
+florilegium-authored.lua
+florilegium-figures.lua
+florilegium-flora.lua
+florilegium-grow.lua
+florilegium-initial.lua
+florilegium-ink.lua
+florilegium-svg.lua
+florilegium-theme-geometric.lua
+florilegium-theme-math.lua
+florilegium.lua
+florilegium.sty
+main.tex

@@ -1,0 +1,6 @@
+STARTER-LICENSE.txt
+TEMPLATE-README.txt
+UPSTREAM-LICENSE.txt
+main.tex
+mondrian.lua
+mondrian.sty

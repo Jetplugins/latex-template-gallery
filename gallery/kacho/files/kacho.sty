@@ -1,0 +1,155 @@
+%% Copyright 2026 Allen Jue
+%%
+%% Licensed under the Apache License, Version 2.0 (the "License");
+%% you may not use this file except in compliance with the License.
+%% You may obtain a copy of the License at
+%%
+%%     https://www.apache.org/licenses/LICENSE-2.0
+%%
+%% Unless required by applicable law or agreed to in writing, software
+%% distributed under the License is distributed on an "AS IS" BASIS,
+%% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%% See the License for the specific language governing permissions and
+%% limitations under the License.
+%%
+%% kacho.sty -- procedural Japanese kacho-e (flower-and-bird) watercolour
+%% decorations for LuaLaTeX page margins. See tex/API.md for the full API.
+%% Portions of the Lua engine are adapted from florilegium (c) 2026 Kevin
+%% Raymond, MIT License (see the headers of the individual tex/kacho-*.lua
+%% files and NOTICE.md). LICENSE and NOTICE.md are repository documents only;
+%% nothing in the package reads them.
+\NeedsTeXFormat{LaTeX2e}[2022/06/01]
+\ProvidesPackage{kacho}[2026/11/02 v0.1.0 procedural kacho-e page decorations]
+\ifdefined\directlua\else
+  \PackageError{kacho}{kacho requires LuaLaTeX}{Compile with lualatex.}%
+  \expandafter\endinput
+\fi
+% pgfcore is used only for its PDF page-resource lists (ExtGState, Pattern).
+\RequirePackage{pgfcore}
+\directlua{kacho = require("kacho"); kacho.in_tex = true}
+
+% ------------------------------------------------------------------ options
+\newif\ifkacho@indoc
+\DeclareKeys[kacho]{
+  seed.code      = \directlua{kacho.set("seed", "\luaescapestring{\detokenize{#1}}")},
+  palette.code   = \directlua{kacho.set("palette", "\luaescapestring{\detokenize{#1}}")},
+  theme.code     = \directlua{kacho.set("theme", "\luaescapestring{\detokenize{#1}}")},
+  layout.code    = \directlua{kacho.set("layout", "\luaescapestring{\detokenize{#1}}")},
+  motif.code     = \directlua{kacho.set("motif", "\luaescapestring{\detokenize{#1}}")},
+  regions.code   = \directlua{kacho.set("regions", "\luaescapestring{\detokenize{#1}}")},
+  spawn.code     = \directlua{kacho.set("spawn", "\luaescapestring{\detokenize{#1}}")},
+  density.code   = \directlua{kacho.set("density", "\luaescapestring{\detokenize{#1}}")},
+  ground.code    = \directlua{kacho.set("ground", "\luaescapestring{\detokenize{#1}}")},
+  seal.code      = \directlua{kacho.set("seal", "\luaescapestring{\detokenize{#1}}")},
+  birds.code     = \directlua{kacho.set("birds", "\luaescapestring{\detokenize{#1}}")},
+  safe.code      = \directlua{kacho.set("safe", \number\dimexpr #1\relax, "sp")},
+  buffer.code    = \directlua{kacho.set("buffer", \number\dimexpr #1\relax, "sp")},
+  debug.code     = \directlua{kacho.set("debug", "\luaescapestring{\detokenize{#1}}")},
+  off.code       = \directlua{kacho.set("off", "\luaescapestring{\detokenize{#1}}")},
+}
+\ProcessKeyOptions[kacho]
+\directlua{kacho.init()}
+\AtBeginDocument{\kacho@indoctrue}
+
+% marker whatsits travel with the material, so the page that *contains* the
+% command is the page affected
+\def\kacho@mark#1{\directlua{kacho.mark("\luaescapestring{#1}")}}
+
+% \kachosetup{keys}: preamble -> immediately; document body -> from the page
+% containing it onward (marker)
+\newcommand\kachosetup[1]{%
+  \ifkacho@indoc
+    \@bsphack\kacho@mark{setup:\detokenize{#1}}\@esphack
+  \else
+    \SetKeys[kacho]{#1}%
+  \fi}
+\newcommand\kachoOff{\@bsphack\kacho@mark{off}\@esphack}
+\newcommand\kachoOn{\@bsphack\kacho@mark{on}\@esphack}
+\newcommand\kachoThisPage[1]{\@bsphack\kacho@mark{page:\detokenize{#1}}\@esphack}
+\newcommand\kachoSpawn[1]{\@bsphack\kacho@mark{spawn:\detokenize{#1}}\@esphack}
+
+% \kachospray[<keys>]: inline artwork box (usable standalone or in figure)
+\newcommand\kacho@s@reset{%
+  \dimen@=0.75\textwidth \edef\kacho@s@w{\the\dimen@}%
+  \dimen@=48mm \edef\kacho@s@h{\the\dimen@}%
+  \def\kacho@s@keys{}}
+\def\kacho@s@addkey#1#2{\edef\kacho@s@keys{\kacho@s@keys#1={\detokenize{#2}},}}
+\DeclareKeys[kacho/spray]{
+  width.code   = {\dimen@=#1\relax\edef\kacho@s@w{\the\dimen@}},
+  height.code  = {\dimen@=#1\relax\edef\kacho@s@h{\the\dimen@}},
+  motif.code   = \kacho@s@addkey{motif}{#1},
+  theme.code   = \kacho@s@addkey{theme}{#1},
+  palette.code = \kacho@s@addkey{palette}{#1},
+  density.code = \kacho@s@addkey{density}{#1},
+  seed.code    = \kacho@s@addkey{seed}{#1},
+  birds.code   = \kacho@s@addkey{birds}{#1},
+  seal.code    = \kacho@s@addkey{seal}{#1},
+  from.code    = \kacho@s@addkey{from}{#1},
+}
+\NewDocumentCommand\kachospray{O{}}{%
+  \begingroup
+  \kacho@s@reset
+  \SetKeys[kacho/spray]{#1}%
+  \leavevmode
+  \vbox to \kacho@s@h{\hrule height\z@ depth\z@ width\kacho@s@w
+    \kacho@mark{spray:\kacho@s@keys}\vss}%
+  \endgroup}
+
+% ------------------------------------------------------------------ title page
+% \kachoTitlePage[<keys>]{<keys or plain title text>}
+% keys: title, subtitle, author, date, width (dimen), pos (tl|tr|c), and the
+% per-page keys layout (default kakejiku), seed, palette, theme, density, ground.
+% M1 ships the typesetting and geometry stub; M3 provides the kakejiku/shikishi art.
+\newcommand\kacho@t@reset{%
+  \def\kacho@t@title{}\def\kacho@t@subtitle{}\def\kacho@t@author{}\def\kacho@t@date{}%
+  \def\kacho@t@pos{tl}\dimen@=0.62\textwidth \edef\kacho@t@width{\the\dimen@}%
+  \def\kacho@t@keys{}}
+\def\kacho@t@addkey#1#2{\edef\kacho@t@keys{\kacho@t@keys#1={\detokenize{#2}},}}
+\DeclareKeys[kacho/title]{
+  title.store    = \kacho@t@title,
+  subtitle.store = \kacho@t@subtitle,
+  author.store   = \kacho@t@author,
+  date.store     = \kacho@t@date,
+  pos.store      = \kacho@t@pos,
+  width.code     = {\dimen@=#1\relax\edef\kacho@t@width{\the\dimen@}},
+  layout.code    = \kacho@t@addkey{layout}{#1},
+  motif.code     = \kacho@t@addkey{motif}{#1},
+  seed.code      = \kacho@t@addkey{seed}{#1},
+  palette.code   = \kacho@t@addkey{palette}{#1},
+  theme.code     = \kacho@t@addkey{theme}{#1},
+  density.code   = \kacho@t@addkey{density}{#1},
+  ground.code    = \kacho@t@addkey{ground}{#1},
+}
+\NewDocumentCommand\kachoTitlePage{O{}m}{%
+  \clearpage
+  \begingroup
+  \kacho@t@reset
+  \in@{=}{#2}%
+  \ifin@ \SetKeys[kacho/title]{#2}\else \def\kacho@t@title{#2}\fi
+  \SetKeys[kacho/title]{#1}%
+  \thispagestyle{empty}%
+  \kacho@mark{title:\kacho@t@keys}%
+  \def\kacho@t@tmp{c}%
+  \ifx\kacho@t@pos\kacho@t@tmp \vspace*{\fill}\fi
+  \noindent
+  \def\kacho@t@tmp{tr}%
+  \ifx\kacho@t@pos\kacho@t@tmp \hfill\fi
+  \def\kacho@t@tmp{c}%
+  \ifx\kacho@t@pos\kacho@t@tmp \hfill\fi
+  \vtop{\hsize=\kacho@t@width \parindent=\z@ \raggedright
+    \kacho@mark{titlebox}%
+    {\Huge\bfseries \kacho@t@title\par}%
+    \ifx\kacho@t@subtitle\@empty\else \vskip 1ex {\Large\itshape \kacho@t@subtitle\par}\fi
+    \ifx\kacho@t@author\@empty\else \vskip 3ex {\large \kacho@t@author\par}\fi
+    \ifx\kacho@t@date\@empty\else \vskip 1ex {\normalsize \kacho@t@date\par}\fi}%
+  \def\kacho@t@tmp{c}%
+  \ifx\kacho@t@pos\kacho@t@tmp \hfill\null\par\vspace*{\fill}\fi
+  \par
+  \endgroup
+  \clearpage}
+
+% ------------------------------------------------------------------ hooks
+\AddToHook{shipout/background}{%
+  \put(0,0){\directlua{kacho.shipout(\number\ShipoutBox, \if@twoside true\else false\fi)}}}
+\AddToHook{enddocument/afterlastpage}{\directlua{kacho.finish()}}
+\endinput

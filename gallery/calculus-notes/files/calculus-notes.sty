@@ -1,0 +1,91 @@
+%% Copyright (c) 2026 JetPlugins. MIT License; see UPSTREAM-LICENSE.txt.
+%% Original implementation inspired by Ludwig Claude Lelis's Calculus1 layout.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{calculus-notes}[2026/11/05 v1.0 reusable course handouts]
+\RequirePackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm]{geometry}
+\RequirePackage{fontspec}
+\RequirePackage{unicode-math}
+% Plex is optional: a standard TeX Live installation is sufficient.
+% A regular-only Plex installation must not silently lose bold headings.
+\def\course@serif{TeX Gyre Pagella}
+\IfFontExistsTF{IBM Plex Serif Bold}{%
+  \IfFontExistsTF{IBM Plex Serif Italic}{\def\course@serif{IBM Plex Serif}}{}}{}
+\IfFontExistsTF{IBM Plex Sans Bold}{\def\course@sans{IBM Plex Sans}}{\def\course@sans{TeX Gyre Heros}}
+\IfFontExistsTF{IBM Plex Mono}{\def\course@mono{IBM Plex Mono}}{\def\course@mono{Latin Modern Mono}}
+\IfFontExistsTF{IBM Plex Math}{\def\course@math{IBM Plex Math}}{\def\course@math{Latin Modern Math}}
+\setmainfont{\course@serif}\setsansfont{\course@sans}
+\setmonofont{\course@mono}\setmathfont{\course@math}
+\RequirePackage{amsmath}
+\RequirePackage{xcolor,tikz}
+\usetikzlibrary{calc}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\RequirePackage{titlesec,fancyhdr,enumitem,booktabs}
+\RequirePackage{hyperref,bookmark}
+\definecolor{courseNavy}{HTML}{002366}
+\definecolor{courseBlue}{HTML}{005A9C}
+\definecolor{courseSky}{HTML}{4DA6FF}
+\definecolor{courseGreen}{HTML}{2E7D32}
+\definecolor{courseOrange}{HTML}{C5680C}
+\definecolor{courseGrey}{HTML}{424242}
+\hypersetup{colorlinks=true,linkcolor=courseNavy,urlcolor=courseBlue}
+\setlength{\parindent}{0pt}\setlength{\parskip}{7pt}
+\linespread{1.12}
+\setlist[itemize]{leftmargin=*,itemsep=3pt,topsep=5pt}
+\setlist[enumerate]{leftmargin=*,itemsep=5pt,topsep=5pt}
+\setlength{\headheight}{16pt}
+\def\course@subtitle{Course Handouts}
+\newcommand\coursesubtitle[1]{\def\course@subtitle{#1}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\textcolor{courseNavy}{\@title}}
+\fancyhead[R]{\sffamily\footnotesize\textcolor{courseBlue}{\course@subtitle}}
+\fancyfoot[C]{\sffamily\small\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{courseBlue}\leaders\hrule height\headrulewidth\hfill}}
+\titleformat{\section}{\sffamily\LARGE\bfseries\color{courseBlue}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\sffamily\large\bfseries\color{courseBlue}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{16pt}{10pt}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+\setcounter{secnumdepth}{1}\setcounter{tocdepth}{1}
+\newcommand\coursecover{%
+  \begin{titlepage}\thispagestyle{empty}
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[courseNavy] (current page.north west) rectangle ([xshift=60mm]current page.south west);
+    \fill[courseSky] ([xshift=60mm]current page.north west) rectangle ([xshift=62mm]current page.south west);
+    \fill[white,opacity=0.08] ([xshift=27mm,yshift=45mm]current page.south west) circle[radius=73mm];
+    \fill[white,opacity=0.08] ([xshift=27mm,yshift=-45mm]current page.north west) circle[radius=40mm];
+    \node[rotate=90,text=white,font=\sffamily\bfseries\Large] at ([xshift=30mm]current page.west) {COURSE NOTES};
+    \node[anchor=north west,inner sep=0] at ([xshift=79mm,yshift=-62mm]current page.north west) {%
+      \begin{minipage}{108mm}\raggedright\sffamily\color{courseNavy}
+      {\fontsize{48}{56}\selectfont\bfseries\@title\par}\vspace{7mm}
+      {\Large\color{courseBlue}\course@subtitle\par}\vspace{10mm}
+      {\color{courseSky}\rule{34mm}{2.4pt}}
+      \end{minipage}};
+    \node[anchor=south west,inner sep=0] at ([xshift=79mm,yshift=48mm]current page.south west) {%
+      \begin{minipage}{108mm}\sffamily\color{courseNavy}
+      {\small AUTHOR\par}\vspace{3mm}{\large\bfseries\@author\par}
+      \vspace{8mm}{\small\@date\par}\end{minipage}};
+  \end{tikzpicture}\null\vfill\end{titlepage}}
+\newcommand\sectionpage[1]{%
+  \clearpage\thispagestyle{empty}\refstepcounter{chapter}\setcounter{section}{0}
+  \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[courseNavy] (current page.north west) rectangle ([xshift=35mm]current page.south west);
+    \fill[courseSky] ([xshift=35mm]current page.north west) rectangle ([xshift=36.5mm]current page.south west);
+    \fill[courseBlue,opacity=0.045] ([xshift=-40mm,yshift=40mm]current page.south east) circle[radius=88mm];
+    \node[text=white,font=\sffamily\bfseries\fontsize{72}{72}\selectfont] at ([xshift=17.5mm]current page.west) {\thechapter};
+    \node[anchor=west,inner sep=0] at ([xshift=55mm]current page.west) {%
+      \begin{minipage}{126mm}\raggedright\sffamily\color{courseNavy}
+      {\fontsize{35}{43}\selectfont\bfseries #1\par}\vspace{6mm}
+      {\color{courseBlue}\rule{40mm}{2.5pt}}\end{minipage}};
+  \end{tikzpicture}\null\vfill\clearpage}
+\tcbset{coursebox/.style={enhanced,breakable,arc=2mm,boxrule=0.6pt,
+  fonttitle=\sffamily\bfseries,coltitle=white,
+  attach boxed title to top left={xshift=5mm,yshift=-2.5mm},
+  boxed title style={arc=1.3mm,boxrule=0pt},
+  top=4mm,bottom=3mm,left=4mm,right=4mm,before skip=14pt,after skip=12pt}}
+\newtcolorbox{definitionbox}[1]{coursebox,title={#1},colframe=courseBlue,colback=courseBlue!5,boxed title style={colback=courseBlue}}
+\newtcolorbox{theorembox}[1]{coursebox,title={#1},colframe=courseGreen,colback=courseGreen!5,boxed title style={colback=courseGreen}}
+\newtcolorbox{examplebox}[1]{coursebox,title={#1},colframe=courseGrey,colback=black!3,boxed title style={colback=courseGrey}}
+\newtcolorbox{remarkbox}[1]{coursebox,title={#1},colframe=courseOrange,colback=courseOrange!6,boxed title style={colback=courseOrange}}
+\endinput

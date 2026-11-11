@@ -1,0 +1,31 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{725648}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Research Statement}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{CAREER / 2026}
+\hero{Research that readers can trust}{Research statement / Alex Morgan}
+\section*{The question guiding my work}How can computing tools help people understand a result well enough to question it, reproduce it, and build on it? My work connects human-centred design with reproducible research practice.
+\section{What I have built}I have developed tools that link questions, data, and computational methods. Working with researchers exposed a recurring gap: successful execution does not necessarily produce an understandable explanation.
+\section{A research agenda}
+\subsection*{1. Make assumptions visible}Study how people identify the conditions under which a result holds, and put those conditions close to the evidence.
+\subsection*{2. Support meaningful reproduction}Communicate not just whether a workflow ran, but which aspects of a finding were reproduced.
+\subsection*{3. Evaluate explanations with readers}Combine controlled studies with field deployments to measure comprehension and the ability to detect problems.
+\section{Contribution to a research community}Share study materials, maintain reusable software, mentor students, and connect methods across disciplines. Replace these illustrative claims with specific evidence from your own work.
+\end{document}

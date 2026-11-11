@@ -1,0 +1,27 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass{mimosis}
+\usepackage{lmodern,natbib,lipsum}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,citecolor=MidnightBlue,urlcolor=MidnightBlue]{hyperref}
+\title{Making Knowledge Visible}\author{Alex Morgan}
+\begin{document}
+\frontmatter
+\begin{titlepage}\centering\sffamily
+{\small SCHOOL OF COMPUTING AND INFORMATION\par}
+\vspace{32mm}{\color{MidnightBlue}\rule{28mm}{2pt}\par}\vspace{12mm}
+{\fontsize{36}{42}\selectfont Making Knowledge\\Visible\par}
+\vspace{10mm}{\Large Methods for open, reproducible research\par}
+\vfill{\Large Alex Morgan\par}\vspace{8mm}
+A thesis submitted for the degree of\\Doctor of Philosophy\\[10mm]Example University\\2026
+\end{titlepage}
+\chapter*{Abstract}
+How can research tools help readers understand and reproduce a result? This thesis develops a framework for connecting methods, data, and explanations. Replace this abstract with the question, approach, findings, and contribution of your own research.
+\tableofcontents
+\mainmatter
+\include{chapters/introduction}
+\include{chapters/methods}
+\include{chapters/results}
+\bibliographystyle{plainnat}\bibliography{references}
+\appendix\chapter{Reproducibility checklist}
+Record software versions, data provenance, and the steps required to reproduce each figure.
+\end{document}

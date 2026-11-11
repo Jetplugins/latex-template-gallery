@@ -1,0 +1,58 @@
+% !TeX program = lualatex
+% Original MIT starter for LaTeX Pro. See TEMPLATE-README.txt.
+\documentclass[11pt,a4paper]{article}
+\usepackage[left=69mm,right=23mm,top=28mm,bottom=28mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{texgyreheros-regular.otf}[
+  BoldFont=texgyreheros-bold.otf, ItalicFont=texgyreheros-italic.otf,
+  BoldItalicFont=texgyreheros-bolditalic.otf]
+\usepackage{microtype}
+\usepackage[seed=17,density=0.65,intensity=1]{mondrian}
+\usepackage{titlesec,fancyhdr}
+\titleformat{\section}{\sffamily\Large\bfseries}{\textcolor{mondrianRed}{\thesection}}{0.7em}{}
+\titlespacing*{\section}{0pt}{20pt}{8pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyfoot[L]{\sffamily\scriptsize COMPOSITION / NOTES ON FORM}
+\fancyfoot[R]{\sffamily\bfseries\thepage}
+\renewcommand{\headrulewidth}{0pt}\setlength{\headheight}{14pt}
+\title{The Art of Balance}
+\author{Alex Morgan}
+\date{}
+\makeatletter
+\renewcommand{\maketitle}{%
+  {\sffamily\small\bfseries\textcolor{mondrianBlue}{STUDIES IN EQUILIBRIUM}\par}
+  \vspace{13mm}
+  {\sffamily\fontsize{39}{41}\selectfont\bfseries\raggedright\@title\par}
+  \vspace{7mm}
+  {\sffamily\small\@author\par}
+  \vspace{10mm}
+  {\color{mondrianBlack}\rule{\linewidth}{2.8pt}}\par\vspace{4mm}}
+\makeatother
+\begin{document}
+\maketitle
+{\large A page is a meeting of lines, color, and the space we choose to leave open.\par}
+\section{A little asymmetry}
+Balance does not require two equal halves. A small, saturated square can hold its own against a much larger field of quiet paper. A black line can separate two areas and, at the same time, make them part of one composition.
+
+This is a place for an essay, a design journal, or a collection of observations. The margin offers a different arrangement on every page, while the words keep their own clear space.
+\section{The useful constraint}
+Begin with a few things: a vertical, a horizontal, a red, a blue, a yellow. Then ask what each one contributes. Remove a line and the rhythm changes; move a block and the whole page finds a new center of gravity.
+
+{\sffamily\bfseries\textcolor{mondrianBlue}{Less material. More attention.}\par}
+\clearpage
+\section{Variations on a rule}
+The next page belongs to the same family, but its arrangement is its own. Large rectangles set the pace. Smaller divisions interrupt it. Most of the paper remains quiet, giving each patch of color something to push against.
+
+Use these pages for notes that benefit from a strong visual rhythm: an exhibition essay, a studio notebook, a short manifesto, or a set of ideas that are still taking shape.
+\section{Room to think}
+The simplest shapes invite close looking. Where does a line stop? Which area feels heavier? What happens when a narrow strip of yellow moves from one edge to the other?
+
+Write a paragraph, pause, and leave a little space. A composition is also made from the intervals between its parts.
+
+\vspace{8mm}
+{\color{mondrianRed}\rule{24mm}{3pt}}\par
+{\sffamily\small An open space is an active part of the page.}
+\end{document}

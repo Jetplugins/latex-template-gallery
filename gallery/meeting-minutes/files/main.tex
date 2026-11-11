@@ -1,0 +1,31 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{416A64}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Meeting Minutes}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{BUSINESS / 2026}
+\hero{Research tools / Sprint review}{Meeting minutes / 1 November 2026}
+\begin{tabularx}{\linewidth}{lX}\textbf{Time} & 10:00--10:45\\\textbf{Chair} & Alex Morgan\\\textbf{Attendees} & Jordan Lee, Sam Taylor, Riley Chen\\\textbf{Purpose} & Review the pilot and agree the next iteration\\\end{tabularx}
+\section{Agenda}\begin{enumerate}\item Pilot findings and feedback.\item Search and navigation improvements.\item Priorities, owners, and next review.\end{enumerate}
+\section{Decisions}\begin{itemize}\item Keep the pilot focused on local document libraries.\item Prioritise empty states and keyboard navigation.\item Schedule a second usability session before adding features.\end{itemize}
+\section{Actions}
+\begin{tabularx}{\linewidth}{Xll}\toprule Action & Owner & Due\\\midrule Summarise findings & Jordan & 4 Nov\\Revise prototype & Riley & 8 Nov\\Recruit participants & Sam & 10 Nov\\Prepare review & Alex & 15 Nov\\\bottomrule\end{tabularx}
+\section{Open questions}Which document types are essential for the next pilot? What evidence would justify expanding scope?
+\section*{Next meeting}15 November 2026, 10:00. Circulate the prototype and participant summary in advance.
+\end{document}

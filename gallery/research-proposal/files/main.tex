@@ -1,0 +1,35 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{704B70}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Research Proposal}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{ACADEMIC / 2026}
+\hero{A question worth pursuing}{Research proposal / School of Computing}
+\section*{Project in one paragraph}Investigate how open research tools can make computational results easier to understand and reproduce. The project combines interviews, prototype development, and comparative evaluation.
+\section{Research questions}
+\begin{enumerate}\item What information do readers need to reproduce a result?\item Which explanations help readers identify assumptions?\item How should tools expose uncertainty and limitations?\end{enumerate}
+\section{Approach}
+\textbf{Discover:} interview researchers and review existing workflows.\\
+\textbf{Build:} prototype an interface connecting methods, data, and findings.\\
+\textbf{Evaluate:} compare task completion and comprehension.
+\section{Milestones}
+\begin{tabularx}{\linewidth}{lX}\toprule Period & Deliverable\\\midrule Months 1--3 & Literature review and study design\\Months 4--6 & Interviews and first prototype\\Months 7--9 & Evaluation and analysis\\Months 10--12 & Research paper and open materials\\\bottomrule\end{tabularx}
+\section{Expected contribution}A tested design framework, a documented prototype, and reusable study materials.
+\section{Ethics and feasibility}Describe recruitment, consent, data handling, resource needs, and principal risks.
+\end{document}

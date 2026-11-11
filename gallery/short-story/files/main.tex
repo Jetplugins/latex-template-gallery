@@ -1,0 +1,35 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{785B48}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Short Story}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{CREATIVE / 2026}
+\hero{The Atlas of Quiet Places}{A short story / Alex Morgan}
+\vspace{8mm}
+The map arrived on a Thursday, folded into an envelope with no return address. It showed the city exactly as Mara remembered it, except for a small blue square where her grandmother's house had once stood.
+Every other building was drawn in black. The station, the library, the corner shop with its stubborn striped awning: all of them were there, crisp and ordinary. Only the square seemed to have been added by hand.
+Mara put the kettle on. She had learned that most mysteries became less urgent in the time it took water to boil. This one did not.
+\begin{center}\vspace{5mm}\textasteriskcentered\quad\textasteriskcentered\quad\textasteriskcentered\vspace{5mm}\end{center}
+At the library, a man was returning a book the size of a suitcase. He watched her unfold the map across the catalogue desk.
+\lq\lq You have one too,\rq\rq\ he said.
+Mara looked up. \lq\lq One what?\rq\rq
+He pointed to the blue square. \lq\lq A place that remembers you.\rq\rq
+Outside, the rain began to move across the windows. It made the city look briefly unfinished, as though someone might still decide to draw it differently.
+\vspace{8mm}{\small\itshape Continue the story here. Use a centred scene break to mark a shift in time, place, or point of view.}
+\end{document}

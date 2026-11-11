@@ -1,0 +1,32 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{B45C25}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Laboratory Report}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{ACADEMIC / 2026}
+\hero{Measuring with confidence}{Experiment 04 / Physics Laboratory}
+\begin{tabularx}{\linewidth}{XX}\textbf{Researcher} Alex Morgan & \textbf{Date} 1 November 2026\\\textbf{Partner} Jordan Lee & \textbf{Supervisor} Dr Taylor\\\end{tabularx}
+\section{Objective}Estimate the spring constant from repeated measurements of displacement under a known load.
+\section{Equipment and procedure}
+\begin{enumerate}\item Mount the spring and record its unloaded length.\item Add a known mass and wait for the system to settle.\item Measure displacement three times for each load.\item Plot force against displacement and estimate the gradient.\end{enumerate}
+\section{Observations}
+\begin{center}\begin{tabular}{rrrr}\toprule Mass (kg) & Force (N) & Displacement (m) & Uncertainty (m)\\\midrule 0.10 & 0.98 & 0.020 & 0.001\\0.20 & 1.96 & 0.039 & 0.001\\0.30 & 2.94 & 0.060 & 0.001\\\bottomrule\end{tabular}\end{center}
+\section{Analysis}Using Hooke's law, $F=kx$, the approximate spring constant is $k=49\,\mathrm{N\,m^{-1}}$. These values are illustrative.
+\section{Discussion}Discuss systematic error, measurement precision, and whether the model is appropriate over the full range of observations.
+\end{document}

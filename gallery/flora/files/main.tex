@@ -1,0 +1,97 @@
+% !TeX program = lualatex
+% MIT sample by JetPlugins; tikz-flora copyright its authors, MIT.
+\documentclass[11pt,a4paper,twoside]{article}
+\usepackage[inner=22mm,outer=57mm,top=39mm,bottom=32mm,
+  headheight=14pt,headsep=18pt]{geometry}
+% LuaLaTeX's bundled Latin Modern fonts include regular, bold, and italic.
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{tikzflora}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{9pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\textsc{A season in the garden}}
+\fancyfoot[LE,RO]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% A fixed seed is repeatable; each page grows a different composition.
+% split mirrors the flora into the outer margin of two-sided pages.
+% Use seed=random for a new garden each build, or change the number.
+\florasetup{layout=split,seed=7,colourway=spring,density=0.8,
+  visitors=0.35,giltdpi=300}
+\title{The Garden Notebook}
+\author{Alex Morgan}
+\date{A season of small observations}
+\begin{document}
+
+% The title page has its own framing layout and a wider text block.
+\newgeometry{left=32mm,right=32mm,top=50mm,bottom=40mm}
+\florathispage{layout=flank,seed=17,density=0.9,
+  ornaments={sun_crest=4}}
+\begin{floratitle}
+\maketitle
+\thispagestyle{empty}
+\end{floratitle}
+\vspace{45mm}
+\begin{center}
+\begin{minipage}{0.68\textwidth}
+\centering\itshape
+A garden is never quite the same place twice.\par
+Leave a little room for what arrives next.
+\end{minipage}
+\end{center}
+\clearpage
+\restoregeometry
+
+\section*{At the beginning of spring}
+The first green appears close to the ground, where yesterday there was only
+soil and last year's leaves. A few shoots lean towards the path. Above them,
+a branch carries buds so small that they are easiest to see against the sky.
+
+This notebook begins with those small changes. There is no need to name
+every plant or explain every pattern. Write down the color of a stem, the
+shape of a leaf, or the place where the afternoon light first reaches the bed.
+
+\subsection*{A practice of looking}
+Choose one corner of the garden and return to it each week. Keep the same
+point of view, but let the details change. One day the important thing may
+be a flower; another day it may be the empty space around it.
+
+\begin{quote}
+\itshape Notice first. Name things later. Let a question stay open long
+enough for the garden to offer a different answer.
+\end{quote}
+
+% Flora also reaches into generous gaps left between blocks of text.
+\vspace{28mm}
+\subsection*{What to record}
+\begin{description}
+\item[Light] Where it falls, how long it stays, and what grows towards it.
+\item[Weather] Rain on the path, wind at the gate, the warmth of a wall.
+\item[Visitors] A bee at a blossom, a bird in the hedge, a trail across a leaf.
+\end{description}
+\clearpage
+
+% This page alone changes season, plant mix, and ink palette.
+% The even and odd body pages demonstrate both outer margins.
+\florathispage{colourway=autumn,density=0.7,
+  mix={lily=1.4,umbel=1.5,bird=0.5,butterfly=0.4},
+  palette={leaves=earth}}
+\section*{When the season turns}
+By autumn the garden has changed its handwriting. Seed heads replace soft
+petals, shadows reach farther across the path, and the leaves gather warm
+colors along their edges. The same corner now tells a different story.
+
+Read an earlier entry before adding a new one. Something that seemed
+unimportant in spring may explain the shape of the garden now. A stem has
+bent, a branch has thickened, and a bare patch has become a place to shelter.
+
+\subsection*{Carry something forward}
+Keep one detail for the months ahead: the last flower beside the gate, the
+sound of rain in an empty pot, or the brief weight of a bird before it flies.
+There is room here for an observation that does not yet belong anywhere else.
+
+\vspace{18mm}
+{\small\itshape The next page is an invitation to begin again.}
+\end{document}

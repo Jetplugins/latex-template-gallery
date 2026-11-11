@@ -1,0 +1,33 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{215D80}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Service Invoice}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{BUSINESS / 2026}
+\hero{Invoice}{INV-2026-014 / Issued 1 November 2026}
+\begin{minipage}[t]{.48\linewidth}\textbf{From}\\Example Studio\\42 Example Street\\Sydney NSW 2000\\accounts@example.com\end{minipage}\hfill
+\begin{minipage}[t]{.45\linewidth}\textbf{Bill to}\\Research Group\\Example University\\100 University Road\\Sydney NSW 2000\end{minipage}
+\vspace{12mm}
+\begin{tabularx}{\linewidth}{Xrrr}\toprule Description & Hours & Rate & Amount\\\midrule Research and discovery & 6 & 100.00 & 600.00\\Interface design & 8 & 100.00 & 800.00\\Documentation & 1 & 100.00 & 100.00\\\bottomrule\end{tabularx}
+\vspace{6mm}
+\begin{flushright}\begin{tabular}{lr}Subtotal & 1,500.00\\Illustrative tax (10\%) & 150.00\\\midrule\textbf{Total due} & \textbf{1,650.00}\\\end{tabular}\end{flushright}
+\vspace{8mm}\section*{Payment details}
+Due date: 15 November 2026\\Reference: INV-2026-014\\Payment method: replace with your own instructions.
+\vfill{\small\color{quiet}All names, amounts, and payment details are fictional. Confirm the currency, applicable taxes, registration details, and terms for your business.}
+\end{document}

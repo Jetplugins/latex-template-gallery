@@ -1,0 +1,31 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{245077}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Technical Report}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{ACADEMIC / 2026}
+\hero{Designing for reliability}{Technical report TR-2026-04 / Example Lab}
+\section*{Executive summary}This report evaluates a document-processing service and proposes a simpler architecture with predictable failure handling. The recommendation is to make work resumable, observable, and independently testable.
+\section{Context and requirements}Process documents consistently, preserve source files, and explain failures in language that a researcher can act on.
+\section{Architecture}
+\begin{tabularx}{\linewidth}{lXX}\toprule Stage & Responsibility & Output\\\midrule Ingest & Validate and identify input & Work item\\Process & Execute bounded transformations & Result and log\\Present & Explain status and next action & Reviewable output\\\bottomrule\end{tabularx}
+\section{Evaluation}Compare throughput, failure recovery, and operational complexity. Record the workload and environment so results can be reproduced.
+\section{Recommendations}\begin{enumerate}\item Make intermediate results durable.\item Keep errors close to the operation that caused them.\item Measure the experience of recovering from failure.\end{enumerate}
+\section{Next steps}Assign owners and define a small pilot before committing to a full migration.
+\end{document}

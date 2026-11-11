@@ -1,0 +1,36 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{233C69}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Research Article}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{ACADEMIC / 2026}
+\hero{Explaining a result}{A reproducible research article / Alex Morgan and Jordan Lee}
+\begin{abstract}
+A clear research article connects a focused question to a defensible conclusion. This starter demonstrates an abstract, a concise method, an example comparison, and a bibliography. Replace the sample data and claims with your own findings.
+\end{abstract}
+\section{Introduction}
+Begin with the problem and explain why the reader should care. Distinguish the contribution from the surrounding literature \cite{morgan2026}.
+\section{Method}
+Describe the study design, data collection, and evaluation criteria. Include enough detail for another researcher to reproduce the analysis.
+\subsection{Evaluation}Compare a baseline with a proposed approach using the same tasks and measurements.
+\section{Results}
+\begin{center}\begin{tabular}{lrr}\toprule Approach & Accuracy & Time (s)\\\midrule Baseline & 0.72 & 14.0\\Proposed & 0.89 & 9.2\\\bottomrule\end{tabular}\end{center}
+\section{Discussion}Interpret the comparison, explain uncertainty, and identify limits to generalisation.
+\bibliographystyle{plain}\bibliography{references}
+\end{document}

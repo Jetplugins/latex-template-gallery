@@ -1,0 +1,7 @@
+STARTER-LICENSE.txt
+TEMPLATE-README.txt
+UPSTREAM-LICENSE.txt
+main.tex
+tufte-book.cls
+tufte-common.def
+tufte-handout.cls

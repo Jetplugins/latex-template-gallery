@@ -1,0 +1,22 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[aspectratio=169]{beamer}
+\usepackage{lmodern,booktabs}
+\definecolor{ink}{HTML}{173F4F}\definecolor{accent}{HTML}{DC7A38}
+\setbeamercolor{normal text}{fg=ink,bg=white}\setbeamercolor{frametitle}{fg=ink}\setbeamercolor{structure}{fg=accent}
+\setbeamerfont{frametitle}{size=\LARGE,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{\hfill\usebeamercolor[fg]{structure}\insertframenumber\hspace{5mm}\vspace{4mm}}
+\title{Make the idea\\easy to follow}\subtitle{A research talk in three clear steps}
+\author{Alex Morgan}\institute{Example University}\date{November 2026}
+\begin{document}
+\begin{frame}\vspace{5mm}{\color{accent}\rule{18mm}{2pt}}\vspace{4mm}\titlepage\end{frame}
+\begin{frame}{01 / Begin with the question}
+\begin{block}{The central question}How can research tools make a result easier to understand and reproduce?\end{block}
+\begin{itemize}\item Establish context.\item Name the gap.\item State the contribution in one sentence.\end{itemize}\end{frame}
+\begin{frame}{02 / Show the evidence}
+\begin{columns}\begin{column}{.48\textwidth}\Large One comparison.\\One clear takeaway.\end{column}
+\begin{column}{.46\textwidth}\begin{tabular}{lrr}\toprule Method & Score & Time\\\midrule Baseline & 72 & 14\\Proposed & 89 & 9\\\bottomrule\end{tabular}\end{column}\end{columns}
+\vspace{7mm}These numbers are illustrative. Replace them with your evidence and explain what the audience should notice.\end{frame}
+\begin{frame}{03 / Leave a useful next step}\Large Make assumptions visible.\\[4mm]Keep methods reproducible.\\[4mm]Explain what changes next.\vfill\normalsize alex@example.com\end{frame}
+\end{document}

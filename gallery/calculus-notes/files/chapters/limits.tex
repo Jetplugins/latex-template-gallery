@@ -1,0 +1,37 @@
+% !TeX root = ../main.tex
+\section{Getting close to a value}
+A limit describes the value a function approaches as its input moves toward a point. Start with a picture, then use algebra to make the observation precise.
+
+\begin{definitionbox}{Definition: a limit}
+We write $\lim_{x\to a}f(x)=L$ when the values of $f(x)$ can be made arbitrarily close to $L$ by taking $x$ sufficiently close to $a$, with $x\ne a$.
+\end{definitionbox}
+
+\begin{examplebox}{Worked example: remove the gap}
+Consider $f(x)=(x^2-1)/(x-1)$. For $x\ne 1$, factoring gives
+\[
+ f(x)=\frac{(x-1)(x+1)}{x-1}=x+1,
+ \qquad \text{so}\qquad \lim_{x\to1}f(x)=2.
+\]
+The function has a gap at $(1,2)$, but its nearby values follow a straight line.
+\begin{center}
+\begin{tikzpicture}[x=1.25cm,y=0.70cm,>=stealth]
+  \draw[->,gray] (-0.7,0)--(3.2,0) node[right] {$x$};
+  \draw[->,gray] (0,-0.3)--(0,4.2) node[above] {$y$};
+  \draw[courseBlue,very thick] (-0.5,0.5)--(2.8,3.8);
+  \draw[dashed,gray] (1,0) node[below] {$1$}--(1,2)--(0,2) node[left] {$2$};
+  \draw[courseBlue,thick,fill=white] (1,2) circle[radius=2.6pt];
+  \node[courseBlue,anchor=west] at (1.45,2.0) {$y=x+1$};
+\end{tikzpicture}
+\end{center}
+\end{examplebox}
+
+\begin{theorembox}{Limit law: sums}
+If $\lim_{x\to a}f(x)=L$ and $\lim_{x\to a}g(x)=M$, then
+\[
+ \lim_{x\to a}\bigl(f(x)+g(x)\bigr)=L+M.
+\]
+\end{theorembox}
+
+\begin{remarkbox}{Keep the two questions separate}
+The value $f(a)$ and the limit as $x\to a$ answer different questions. A function can have a limit at a point where it is undefined.
+\end{remarkbox}

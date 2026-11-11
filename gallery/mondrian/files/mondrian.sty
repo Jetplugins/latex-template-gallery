@@ -1,0 +1,42 @@
+%% Copyright (c) 2026 JetPlugins. MIT License; see UPSTREAM-LICENSE.txt.
+\NeedsTeXFormat{LaTeX2e}[2022/06/01]
+\ProvidesPackage{mondrian}[2026/11/05 v1.0 procedural De Stijl page compositions]
+\ifdefined\directlua\else
+  \PackageError{mondrian}{This package requires LuaLaTeX}{Compile with lualatex.}
+  \expandafter\endinput
+\fi
+\RequirePackage{eso-pic}
+\RequirePackage{xcolor}
+\def\mondrian@seed{17}
+\def\mondrian@density{0.65}
+\def\mondrian@intensity{1}
+\newif\ifmondrian@enabled \mondrian@enabledtrue
+\DeclareKeys[mondrian]{
+  seed.store=\mondrian@seed,
+  density.store=\mondrian@density,
+  intensity.store=\mondrian@intensity,
+}
+\ProcessKeyOptions[mondrian]
+\newcommand\mondriansetup[1]{\SetKeys[mondrian]{#1}}
+% Changes in the body apply at shipout; use \clearpage before changing settings.
+\newcommand\mondrianOff{\mondrian@enabledfalse}
+\newcommand\mondrianOn{\mondrian@enabledtrue}
+\definecolor{mondrianRed}{HTML}{D11A16}
+\definecolor{mondrianBlue}{HTML}{0E389C}
+\definecolor{mondrianYellow}{HTML}{FCCA0E}
+\definecolor{mondrianBlack}{HTML}{111213}
+\directlua{mondrian = require("mondrian")}
+\AddToShipoutPictureBG{\AtPageLowerLeft{%
+  \begingroup
+  \dimen0=\dimexpr 1in+\hoffset+\oddsidemargin\relax
+  \if@twoside\ifodd\value{page}\else
+    \dimen0=\dimexpr 1in+\hoffset+\evensidemargin\relax
+  \fi\fi
+  \dimen2=\dimexpr\paperwidth-\dimen0-\textwidth\relax
+  \directlua{mondrian.paint(
+    \number\paperwidth, \number\paperheight, \number\dimen0, \number\dimen2,
+    \number\value{page}, "\luaescapestring{\mondrian@seed}",
+    "\luaescapestring{\mondrian@density}", "\luaescapestring{\mondrian@intensity}",
+    \ifmondrian@enabled true\else false\fi)}%
+  \endgroup}}
+\endinput

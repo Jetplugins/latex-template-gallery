@@ -1,0 +1,14 @@
+STARTER-LICENSE.txt
+TEMPLATE-README.txt
+UPSTREAM-LICENSE.txt
+deedy-resume-openfont.cls
+fonts/lato-OFL.txt
+fonts/lato/Lato-Bold.ttf
+fonts/lato/Lato-Hairline.ttf
+fonts/lato/Lato-Italic.ttf
+fonts/lato/Lato-Light.ttf
+fonts/lato/Lato-LightItalic.ttf
+fonts/lato/Lato-Regular.ttf
+fonts/raleway-OFL.txt
+fonts/raleway/Raleway-Regular.otf
+main.tex

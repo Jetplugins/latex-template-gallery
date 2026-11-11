@@ -1,0 +1,9 @@
+STARTER-LICENSE.txt
+TEMPLATE-README.txt
+UPSTREAM-LICENSE.txt
+chapters/introduction.tex
+chapters/methods.tex
+chapters/results.tex
+main.tex
+mimosis.cls
+references.bib

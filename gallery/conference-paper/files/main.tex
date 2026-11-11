@@ -1,0 +1,36 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{334E68}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Two-Column Conference Paper}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\twocolumn[\begin{@twocolumnfalse}
+\eyebrow{ACADEMIC / 2026}
+\hero{Clear systems.\\Clear explanations.}{Alex Morgan / Example University}
+\begin{abstract}A compact two-column paper can present a contribution, method, and result without a publisher-specific class. Check venue requirements before submission.\end{abstract}
+\end{@twocolumnfalse}\vspace{6mm}]
+\section{Introduction}Explain the setting, the limitation of existing approaches, and the insight behind the proposed method.
+\section{Approach}Balance predictive error with model complexity:
+\begin{equation}J(\theta)=\frac{1}{n}\sum_{i=1}^{n}(y_i-f_\theta(x_i))^2+\lambda\|\theta\|^2.\end{equation}
+Define the parameters and motivate the evaluation.
+\newpage
+\section{Evaluation}Use consistent conditions and report variability alongside average performance.
+\begin{center}\begin{tabular}{lrr}\toprule Model & Score & Cost\\\midrule Baseline & 72 & 14\\Proposed & 89 & 9\\\bottomrule\end{tabular}\end{center}
+\section{Discussion}State the conditions under which the result is useful and the questions left open.
+\begin{thebibliography}{1}\bibitem{sample} A. Morgan. A sample research reference. Example Symposium, 2026.\end{thebibliography}
+\end{document}

@@ -1,0 +1,35 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{996426}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Lecture Notes}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{BOOKS \& NOTES / 2026}
+\hero{Learning from data}{Lecture 03 / Introduction to statistical reasoning}
+\section*{Learning goals}Explain a model in words, distinguish a parameter from an observation, and interpret a simple least-squares estimate.
+\section{From observations to a model}A model is a deliberate simplification. Identify what is observed, what is unknown, and which assumptions connect them.
+\subsection*{Definition: residual}For observation $i$, the residual is $r_i=y_i-\hat{y}_i$. It records the difference between an observed and a predicted value.
+\section{A worked example}For a constant predictor $\hat{y}_i=c$, minimise
+\[
+L(c)=\sum_{i=1}^{n}(y_i-c)^2.
+\]
+Differentiating and setting the result to zero gives $c=\frac{1}{n}\sum_i y_i$: the sample mean.
+\section{Pause and discuss}What changes if large errors should be penalised less strongly? Which assumptions are built into squared error?
+\section{Review questions}
+\begin{enumerate}\item Explain a residual without a formula.\item Derive the constant least-squares predictor.\item Give an example where the mean is a poor summary.\end{enumerate}
+\end{document}

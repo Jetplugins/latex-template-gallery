@@ -1,0 +1,50 @@
+% !TeX program = lualatex
+% MIT sample text; Kacho engine copyright Allen Jue, Apache-2.0.
+\documentclass[11pt,a4paper,twoside]{article}
+\usepackage[inner=24mm,outer=53mm,top=32mm,bottom=34mm]{geometry}
+\usepackage{fontspec}
+% Pagella needs all four faces. Basic TeX installations can use Latin Modern instead.
+\newif\ifkachopagella
+\kachopagellatrue
+\IfFontExistsTF{TeX Gyre Pagella}{}{\kachopagellafalse}
+\IfFontExistsTF{TeX Gyre Pagella Bold}{}{\kachopagellafalse}
+\IfFontExistsTF{TeX Gyre Pagella Italic}{}{\kachopagellafalse}
+\IfFontExistsTF{TeX Gyre Pagella Bold Italic}{}{\kachopagellafalse}
+\ifkachopagella
+  \setmainfont{TeX Gyre Pagella}
+\else
+  \setmainfont{Latin Modern Roman}
+\fi
+\usepackage{microtype}
+\usepackage[seed=7,palette=hanga,theme=haru,layout=overhang,
+  ground=washi,density=0.75,birds=true,seal=true]{kacho}
+\setlength{\parindent}{0pt}\setlength{\parskip}{9pt}
+\title{Notes from the Orchard}
+\author{Alex Morgan}
+\date{}
+\begin{document}
+\kachoThisPage{theme=haru,palette=hanga,layout=overhang,motif={sakura,uguisu},seed=11}
+\maketitle
+\section*{The first warm morning}
+The orchard changes before we have a name for the season. A few pale blossoms open along a dark branch; a bird settles where the wood divides. The rest is still waiting.
+
+These pages are a place for small observations: the shape of a leaf, a walk taken without a destination, a conversation remembered on the way home.
+\section*{A practice of looking}
+Choose one tree and return to it. Notice what has moved and what has stayed. A bud becomes a flower, then a scattering of petals. The branch keeps a record that is easy to miss if we hurry.
+
+Leave room in the notebook for things you cannot yet explain. A good observation does not always arrive with a conclusion.
+\begin{center}
+\kachospray[width=0.85\linewidth,height=34mm,motif=ume,seed=14]
+\end{center}
+{\small\itshape A branch drawn in ink and watercolor, directly on the page.}
+\clearpage
+\kachoThisPage{theme=aki,palette=hanga,layout=overhang,motif={maple,mejiro},seed=21}
+\section*{When the leaves turn}
+By autumn, the orchard has changed its handwriting. Sharp leaves gather at the ends of long stems. Warm red and ochre replace the cool colors of spring, and the light reaches farther between the branches.
+
+Some notes belong to a single afternoon. Others ask to be read again months later, when the place that prompted them looks different.
+\section*{Carry something forward}
+Write down one detail to remember through the winter. It can be ordinary: the sound of a gate, the last leaf on a branch, the brief weight of a bird before it flies.
+
+The next page is an invitation to begin again.
+\end{document}

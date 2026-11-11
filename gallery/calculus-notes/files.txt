@@ -1,0 +1,7 @@
+STARTER-LICENSE.txt
+TEMPLATE-README.txt
+UPSTREAM-LICENSE.txt
+calculus-notes.sty
+chapters/limits.tex
+chapters/practice.tex
+main.tex

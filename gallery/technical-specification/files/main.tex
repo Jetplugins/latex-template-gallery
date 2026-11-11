@@ -1,0 +1,36 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{205E62}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Technical Specification}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{BUSINESS / 2026}
+\hero{Document Search API}{Specification v0.1 / Draft for review}
+\section*{Decision to make}Provide a local-first search interface that returns useful results with clear provenance.
+\section{Scope}\textbf{Included:} document indexing, text queries, ranked results, and refresh status.\\\textbf{Deferred:} cross-organisation accounts and remote collaboration.
+\section{Requirements}
+\begin{tabularx}{\linewidth}{lXl}\toprule ID & Requirement & Priority\\\midrule R1 & Search stays usable while the index refreshes. & Must\\R2 & Every result identifies its source document. & Must\\R3 & Users can inspect matching passages. & Should\\\bottomrule\end{tabularx}
+\section{Interface}
+\begin{verbatim}
+GET /search?q=reproducibility&limit=10
+{ "results": [], "indexStatus": "ready" }
+\end{verbatim}
+\section{Acceptance criteria}
+\begin{itemize}\item A query returns results or an explicit empty state.\item A failed refresh preserves the last successful index.\item Keyboard users can reach and open every result.\end{itemize}
+\section{Open questions}What is the appropriate limit for a library? Which document types are required for the first release?
+\end{document}

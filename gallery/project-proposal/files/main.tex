@@ -1,0 +1,32 @@
+% !TeX program = pdflatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,enumitem,amsmath,amssymb,xcolor,titlesec,fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\definecolor{accent}{HTML}{28756B}\definecolor{quiet}{HTML}{526171}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=*,itemsep=3pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily Project Proposal}\fancyhead[R]{\small\sffamily Alex Morgan}\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\eyebrow}[1]{{\small\sffamily\bfseries\color{accent}#1}\par\vspace{5mm}}
+\newcommand{\hero}[2]{{\fontsize{32}{36}\selectfont\sffamily\bfseries #1\par}\vspace{4mm}{\large\color{quiet}#2\par}\vspace{6mm}{\color{accent}\rule{\linewidth}{1.5pt}}\vspace{5mm}}
+
+\begin{document}
+\eyebrow{BUSINESS / 2026}
+\hero{A clearer way to discover}{Project proposal / Example Studio}
+\section*{The opportunity}Help a research team find and reuse the knowledge already present in its document library.
+\section{Objectives and deliverables}
+\begin{tabularx}{\linewidth}{lX}\toprule Phase & Deliverable\\\midrule Discover & Interviews, workflow map, success measures\\Design & Search prototype and a tested interaction model\\Deliver & Documented pilot and handover session\\\bottomrule\end{tabularx}
+\section{Working plan}\textbf{Weeks 1--2:} discovery and alignment.\\\textbf{Weeks 3--4:} prototype and review.\\\textbf{Weeks 5--6:} pilot, evaluation, and handover.
+\section{Investment}
+\begin{tabularx}{\linewidth}{Xr}\toprule Workstream & Estimated fee\\\midrule Discovery & 2,000\\Design and prototyping & 4,500\\Pilot and handover & 3,500\\\midrule Total (sample currency units) & 10,000\\\bottomrule\end{tabularx}
+\section{Assumptions and approval}Confirm scope, access to participants, timeline, currency, and commercial terms before accepting.
+\vspace{6mm}Client: \hrulefill\hspace{10mm}Date: \hrulefill
+\end{document}
