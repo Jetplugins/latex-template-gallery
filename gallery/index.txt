@@ -27,3 +27,4 @@ mondrian
 kacho
 calculus-notes
 flora
+beamer-floral

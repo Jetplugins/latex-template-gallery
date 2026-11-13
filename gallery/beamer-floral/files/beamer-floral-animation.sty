@@ -1,0 +1,101 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamer-floral-animation}[2026/11/08 v0.1.0 Optional floral growth animation]
+\RequirePackage{beamer-floral}
+\@ifclassloaded{beamer}{}{%
+  \DeclareOption*{}\ProcessOptions\relax
+  \expandafter\endinput
+}
+\RequirePackage{animate}[2024/10/14]
+\directlua{beamer_floral.animation_support=true; beamer_floral.raster_cache=false}
+\DeclareOption{vector}{\directlua{beamer_floral.raster_cache=false}}
+\DeclareOption{raster}{\directlua{beamer_floral.raster_cache=true}}
+\ProcessOptions\relax
+% Scope this adaptation to floral animations. animate normally advances one
+% sample per timer event; vector rendering can make that accumulate delays.
+% Use elapsed active time, retaining its page-entry lifecycle.
+\makeatletter
+\newcommand\floralanimationclock{%
+  \let\floral@jsdecls\@anim@@jsvardecls
+  \def\@anim@@jsvardecls##1{%
+    \floral@jsdecls{##1}%
+    var a##1_floralEpoch,a##1_floralBasePlay,a##1_floralEntered;%
+  }%
+  % Screen and Widget annotations can both report PageOpen/PageVisible.
+  % A delayed duplicate must not restart a short, already finished interval.
+  \let\floral@pageopen\@anim@@pojscript
+  \def\@anim@@pojscript##1{%
+    if(!a##1_floralEntered){%
+      a##1_floralEntered=true;%
+      \floral@pageopen{##1}%
+    }%
+  }%
+  \def\@anim@@pcjscript##1{%
+    if(a##1_floralEntered){%
+      a##1_floralEntered=false;%
+      if(a##1_playing){a##1_pause(true);}%
+      a##1_playsRight=true;%
+      if(typeof floralPrepareExcept==='function'){floralPrepareExcept(##1);}%
+    }%
+  }%
+  % Rearm only after PageInvisible. Resetting during PageClose redraws
+  % the outgoing page while it is still on screen.
+  \let\floral@pcscript\@anim@pcjscript
+  \def\@anim@pcjscript##1{%
+    \floral@pcscript{##1}%
+    \@anim@streamobj{}{%
+      if(typeof a##1_seekFrame==='function'){%
+        if(a##1_playing){a##1_pause(true);}%
+        a##1_seekFrame(0);a##1_floralEntered=false;%
+      }%
+    }%
+    \global\let\floral@pijsobj\@anim@lastobj
+    \directlua{beamer_floral.note_animation(##1)}%
+  }%
+  \patchcmd{\@anim@animwidget}
+    {/PI <</S/JavaScript/JS \@anim@pcjscriptobj>>}
+    {/PI <</S/JavaScript/JS \floral@pijsobj>>}
+    {}{\PackageError{beamer-floral-animation}{Unsupported animate PageInvisible hook}{Update the floral animation adapter.}}%
+  \patchcmd{\@anim@animwidget}
+    {/PI <</S/JavaScript/JS \@anim@pcjscriptobj>>}
+    {/PI <</S/JavaScript/JS \floral@pijsobj>>}
+    {}{\PackageError{beamer-floral-animation}{Unsupported animate Widget hook}{Update the floral animation adapter.}}%
+  % View defaults stay on the endpoint for readers without JavaScript.
+  % Print/export are explicitly fixed to the endpoint, independent of play.
+  \def\@anim@newocg##1##2{%
+    \ifnum##2=\floralanimationlast\relax
+      \ocgbase@new@ocg{##1.##2}{/Print<</PrintState/ON>>/Export<</ExportState/ON>>}{1}%
+    \else
+      \ocgbase@new@ocg{##1.##2}{/Print<</PrintState/OFF>>/Export<</ExportState/OFF>>}{1}%
+    \fi
+    \xdef\@anim@curocg{\ocgbase@last@ocg}%
+  }%
+  \let\floral@jsinit\@anim@@jsinit
+  \patchcmd{\floral@jsinit}
+    {ocg[i].initState}{(Number(ocgName[1])==0)}
+    {}{\PackageError{beamer-floral-animation}{Unsupported animate OCG initialization}{Update the floral animation adapter.}}%
+  % JavaScript initializes a first-frame view; the PDF's static poster is
+  % still last. Replace only this cloned initializer's poster conditions.
+  \def\floral@patchposter{%
+    \patchcmd{\floral@jsinit}{\@anim@poster}{0}{\floral@patchposter}{}%
+  }%
+  \patchcmd{\floral@jsinit}{\@anim@poster}{0}{\floral@patchposter}%
+    {\PackageError{beamer-floral-animation}{Unsupported animate poster initialization}{Update the floral animation adapter.}}%
+  \def\@anim@@jsinit##1{%
+    \floral@jsinit{##1}%
+    if(!a##1_floralBasePlay){%
+      a##1_floralBasePlay=a##1_playRight;%
+      a##1_playRight=function(){%
+        a##1_floralEpoch=(new Date()).getTime()-a##1_idx*1000/a##1_fps;%
+        a##1_floralBasePlay();%
+      };%
+      a##1_gotoNext=function(){%
+        var target=Math.max(a##1_idx+1,Math.floor(%
+          ((new Date()).getTime()-a##1_floralEpoch)*a##1_fps/1000));%
+        if(target>=\@anim@maxframe){a##1_stopLast();}%
+        else{a##1_seekFrame(target);}%
+      };%
+    }%
+  }%
+}
+\makeatother
+\endinput

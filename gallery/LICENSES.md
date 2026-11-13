@@ -1,6 +1,6 @@
 # Gallery license provenance
 
-The 29 bundled templates use MIT or Apache-2.0 source licenses. Original JetPlugins
+The 30 bundled templates use MIT or Apache-2.0 source licenses. Original JetPlugins
 starters are MIT licensed; community sources retain upstream license notices.
 Every starter copies its license and attribution into the generated project.
 
@@ -35,6 +35,7 @@ Every starter copies its license and attribution into the generated project.
 | kacho | Apache-2.0 | Allen Jue; sample text by JetPlugins | 73a51dd098dc7d65bfa6f0c53a2a77f75eceff3a |
 | calculus-notes | MIT | JetPlugins; visual inspiration: Ludwig Claude Lelis | sha256:cc5825fec2d8137de957465d9f7d83da1340d1e1e5444d50a4e54f37ff9a9a6b |
 | flora | MIT | [The tikz-flora authors; sample text by JetPlugins](https://flora.alpacasoft.dev/) | archive-sha256:27b61e256b620a14eb2698edbd1f87a402a624a4019c516834ca8b4bf9f70e38 |
+| beamer-floral | MIT | [Kristian Niemi (krissen); tikz-flora engine by its authors; sample text by JetPlugins](https://github.com/krissen/beamer-floral) | 556f2a8964663d92be2aa2008e1b79993fabba78 |
 
 ## Adaptations and assets
 
@@ -57,6 +58,17 @@ Every starter copies its license and attribution into the generated project.
   TypeScript web engine). All 57 Lua modules, the style, boot file, upstream README,
   and copyright/license notices are retained. The three-page garden notebook is
   original MIT content and uses TeX-distributed Latin Modern fonts.
+- beamer-floral: unmodified MIT theme (`beamerthemefloral.sty`, `beamer-floral.sty`,
+  `beamer-floral-animation.sty`, and the three `beamer-floral` Lua modules), pinned
+  to commit 556f2a8964663d92be2aa2008e1b79993fabba78. The matching
+  krissen/tikz-flora engine, commit ff218774e205828f2d26026110797d4230a46126
+  (`engine-ref.txt`), is bundled beside the document because the theme requires
+  Beamer hooks that are not in upstream tikz-flora yet. Engine files are
+  unmodified: `tikzflora.sty`, `tikzflora-boot.lua`, `lua/flora/*`,
+  `tikz-flora-LICENSE`, and `tikz-flora-README.md`. The sample talk is new MIT
+  content. `latexmkrc` is the standalone bundle's LuaLaTeX selector
+  (`$pdf_mode = 4`), not the development helper that points at a separate
+  engine checkout. Upstream `README.md`, `LICENSE`, and `engine-ref.txt` are retained.
 - Calculus Notes: original MIT implementation inspired by the local Calculus1
   project credited to Ludwig Claude Lelis; no original course text is bundled.
   IBM Plex fonts are optional system dependencies with TeX Live fallbacks.

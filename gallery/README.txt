@@ -1,6 +1,6 @@
 LaTeX Pro offline gallery
 
-index.txt enumerates all 28 stable catalog IDs. Each directory contains:
+index.txt enumerates all 30 stable catalog IDs. Each directory contains:
 - template.properties: display metadata, compiler, source and pinned revision,
   entry file, preview filenames, and optional preview page numbers.
 - files.txt: explicit relative paths copied when creating a project.

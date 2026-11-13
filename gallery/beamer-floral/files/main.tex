@@ -1,0 +1,33 @@
+% !TeX program = lualatex
+% Gallery starter; see TEMPLATE-README.txt for attribution and licenses.
+% Structure follows the upstream smoke test and standalone example.
+\documentclass[aspectratio=169]{beamer}
+\usepackage{tikz}
+\usetheme{floral}
+% A fixed seed is repeatable. The title frame uses the theme's fuller preset;
+% this setup applies to the other frames. Named palettes: warm, blue, green.
+\florasetup{layout=surround, seed=3, density=1.2}
+\title{A floral research talk}
+\subtitle{Margins that grow around the argument}
+\author{Alex Morgan}
+\institute{Example University}
+\date{November 2026}
+\begin{document}
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+\begin{frame}{Colour and hierarchy}
+  \framesubtitle{The page and the flora share one palette}
+  \begin{block}{The claim}
+    Keep the argument in the text block. The border grows around it.
+  \end{block}
+  \begin{itemize}
+    \item State the question in one sentence.
+    \item Show a single comparison.
+    \item Leave the audience a next step.
+  \end{itemize}
+  \begin{exampleblock}{Example}
+    A fixed seed draws the same garden on every build.
+  \end{exampleblock}
+\end{frame}
+\end{document}

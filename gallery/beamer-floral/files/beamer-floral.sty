@@ -1,0 +1,175 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamer-floral}[2026/11/08 v0.1.0 Generic floral background for beamer]
+
+% A beamerarticle version of a talk shares the preamble and has no slides to
+% decorate, so the public commands accept their arguments and do nothing.
+\@ifclassloaded{beamer}{}{%
+  \PackageInfo{beamer-floral}{Not a beamer document; flora is disabled}%
+  \providecommand\florasetup[1]{}%
+  \providecommand\florathisframe[1]{}%
+  \providecommand\florathispage[1]{}%
+  \providecommand\florapalette[1]{}%
+  \providecommand\floraon{}%
+  \providecommand\floraoff{}%
+  \providecommand\florareserve[4]{}%
+  \providecommand\floraclearreserve{}%
+  \providecommand\florabackground[3][]{}%
+  \expandafter\endinput
+}
+
+\RequirePackage{tikzflora}
+% A useful floral border needs space, whichever Beamer theme supplies the text.
+% Set document-specific margins after loading this package to override them.
+\setbeamersize{text margin left=2.5cm,text margin right=1cm}
+\newcount\floraltitlepageflag
+% Reset after Beamer has shipped the preceding slide, before this body.
+\AddToHook{cmd/beamer@framenotesbegin/before}{\global\floraltitlepageflag=0\relax}
+
+\directlua{%
+  if flora.prepare_spec_version ~= 1 then
+    tex.error("beamer-floral needs tikz-flora ff21877 or later (prepare_spec hook missing)")
+  end
+  beamer_floral = dofile(kpse.find_file("beamer-floral.lua", "tex"))
+  local directory = status.output_directory
+  local path = (directory and directory ~= "" and directory .. "/" or "") .. tex.jobname .. ".floral-cache"
+  beamer_floral.init(path)
+  local original = flora.page
+  flora.page = function(a)
+    local document_settings = flora.settings
+    local title_page = tex.count.floraltitlepageflag == 1
+    if beamer_floral.frame then title_page = beamer_floral.frame.title_preset end
+    beamer_floral.page_title = title_page
+    if title_page and beamer_floral.title_defaults then
+      flora.settings = require("flora.settings").merge(flora.settings, beamer_floral.title_defaults)
+    end
+    beamer_floral.active_settings = require("flora.settings").merge(flora.settings, flora.once)
+    beamer_floral.pending = flora.once
+    beamer_floral.input_signature = require("flora.serial").encode{
+      seed=a.seed, background_position=a.background_position,
+      background_height=a.background_height, background_color=a.background_color}
+    local previous = a.prepare_spec
+    a.prepare_spec = function(spec)
+      if previous then previous(spec) end
+      beamer_floral.prepare(spec)
+      if beamer_floral.frame.growth.growth ~= "off" and not beamer_floral.handout then
+        if flora.render_page_version ~= 1 then
+          tex.error("beamer-floral growth needs tikz-flora with render_page_version=1")
+        end
+        local previous_render = a.render_page
+        a.render_page = function(spec, args)
+          local rendered = beamer_floral.render_page(spec, args)
+          if rendered ~= nil then return rendered end
+          if previous_render then return previous_render(spec, args) end
+        end
+      elseif beamer_floral.stages > 1 and not beamer_floral.handout
+          and not a.render_page and flora.render_page_version == 1 then
+        a.render_page = beamer_floral.render_static
+      end
+    end
+    local result = original(a)
+    flora.settings = document_settings
+    return result
+  end
+}
+\makeatletter
+\AddToHook{shipout/before}{%
+  \directlua{beamer_floral.context("\beamer@framestartpage", \the\beamer@autobreakcount,
+    \iffloraon true\else false\fi, \ifbeamer@plainframe true\else false\fi)}%
+}
+\AddToHook{enddocument/afterlastpage}{\directlua{beamer_floral.finish()}}
+% In Beamer the next-page convenience command applies to the whole frame.
+\let\florathisframe\florathispage
+\makeatother
+
+% One symbol from the header-aware engine fork; older checkouts would
+% otherwise fail later with an unrelated error.
+\ifcsname floraframetitlepresent\endcsname\else
+  \PackageError{beamer-floral}{This package needs the krissen/tikz-flora fork}%
+    {Point TIKZFLORA at a checkout of the fork's branch beamer-floral, commit
+     ff21877 or later, or set it in a local .env. The upstream engine lacks
+     the header modes and the beamer tune keys.}%
+\fi
+\directlua{%
+  local ok, t = pcall(require, "flora.tune")
+  if not ok or not t.gesture or t.gesture.header_gap == nil then
+    tex.error("beamer-floral needs krissen/tikz-flora ff21877 or later "
+      .. "(gesture.header_gap missing)")
+  end
+}
+
+% Thin, tapered stems and a surround border are the package defaults.
+\florasetup{layout=surround, header=body,
+  tune={plant={root=0.78, root_width=2.2, tip_width=1.2, stem_brush=0.5,
+    end_taper=0.06, fork_ratio=0.8},
+    gesture={edge=0.10}}}
+
+% Beamer builds and unboxes the title box inside \beamer@frameslide; catch
+% its dimensions between the two. The box is empty at shipout.
+\makeatletter
+\renewcommand\floratitleheight{0pt}
+\patchcmd{\endbeamer@frameslide}
+  {\beamer@frametextheight=\textheight}
+  {\beamer@frametextheight=\textheight
+   \xdef\floratitleheight{\the\dimexpr\ht\beamer@frametitlebox+\dp\beamer@frametitlebox\relax}}
+  {}{\PackageError{beamer-floral}{Could not capture the frame title height}%
+    {The Beamer frame implementation has changed. Update the floral adapter before compiling.}}
+\patchcmd{\endbeamer@frameslide}
+  {\beamer@frametextheight=\paperheight}
+  {\beamer@frametextheight=\paperheight
+   \xdef\floratitleheight{\the\dimexpr\ht\beamer@frametitlebox+\dp\beamer@frametitlebox\relax}}
+  {}{\PackageError{beamer-floral}{Could not capture the plain frame title height}%
+    {The Beamer frame implementation has changed. Update the floral adapter before compiling.}}
+\renewcommand\floraframetitlepresent{\ifdim\floratitleheight>0pt 1\else 0\fi}
+\makeatother
+
+% The flora is painted in shipout/background, behind beamer's background
+% canvas. Leave that canvas empty so the page's own colour does not cover
+% the flowers; a document that wants a filled canvas can set it again.
+\setbeamertemplate{background canvas}{}
+
+% Named palettes. Each is a set of inks for the engine's parts; pass one of
+% them to \florapalette, or set any part with \florasetup{palette=...}.
+%   warm         gold hero and sprays, warm blooms, earth leaves and stems
+%   blue         gold hero and sprays, blue blooms, leaves and leaflets
+%   green        gold hero and sprays, blue blooms, green leaves and leaflets
+%   green-stems  as green, with green stems
+\makeatletter
+% A beamer colour theme may follow the chosen palette; beamer-floral itself
+% sets only the engine's inks.
+\providecommand\florapalettehook[1]{}
+\newcommand\florapalette[1]{%
+  \@ifundefined{florapalette@#1}%
+    {\PackageError{beamer-floral}{Unknown floral palette `#1'}%
+      {Known palettes: warm, blue, green, green-stems.}}%
+    {\@nameuse{florapalette@#1}}}
+\newcommand\florapalette@warm{%
+  \florasetup{palette={hero=gold, blooms=warm, leaves=earth, leaflets=blue,
+    stems=earth, sprays=gold, ghost=warm}}\florapalettehook{warm}}
+\newcommand\florapalette@blue{%
+  \florasetup{palette={hero=gold, blooms=blue, leaves=blue, leaflets=blue,
+    stems=earth, sprays=gold, ghost=blue}}\florapalettehook{blue}}
+\newcommand\florapalette@green{%
+  \florasetup{palette={hero=gold, blooms=blue, leaves=green, leaflets=green,
+    stems=earth, sprays=gold, ghost=blue}}\florapalettehook{green}}
+\newcommand\florapalette@green@stems{%
+  \florasetup{palette={hero=gold, blooms=blue, leaves=green, leaflets=green,
+    stems=green, sprays=gold, ghost=blue}}\florapalettehook{green-stems}}
+\expandafter\let\csname florapalette@green-stems\endcsname\florapalette@green@stems
+
+% The generic look is the warm palette; a theme may pick another.
+\florapalette{warm}
+
+\AtBeginDocument{%
+  \mode<handout>{\directlua{beamer_floral.handout=true}}%
+  \floratextblockx{\the\beamer@leftmargin}{\the\dimexpr\paperwidth-\beamer@rightmargin\relax}%
+  \ifdim\beamer@leftsidebar>0pt
+    \floral@sidebarwarning
+  \else\ifdim\beamer@rightsidebar>0pt
+    \floral@sidebarwarning
+  \fi\fi
+}
+\newcommand\floral@sidebarwarning{%
+  \PackageWarningNoLine{beamer-floral}{Sidebar theme detected. The sidebar and flora share margin space; this combination is not visually supported. See README}}
+\makeatother
+
+\endinput
